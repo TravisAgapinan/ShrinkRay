@@ -1,0 +1,33 @@
+USE [ShrinkRay]
+GO
+/****** Object:  StoredProcedure [dbo].[URL_Insert]    Script Date: 6/26/16 9:20:21 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+ALTER proc [dbo].[URL_Insert]
+
+@URL nvarchar(MAX),
+@ID int output,
+@Slug nvarchar(8)
+
+AS
+
+BEGIN
+
+INSERT INTO [dbo].[URLs]
+	(
+	URL,
+	Slug,
+	Created
+	)
+	VALUES 
+	(@URL, @Slug,GETUTCDATE()) /*UTC DATE NOT TIED TO PARTICULAR TIME ZONE*/
+
+	SET
+
+	@ID = SCOPE_IDENTITY()
+	
+	end
