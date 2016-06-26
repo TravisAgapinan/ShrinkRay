@@ -21,7 +21,7 @@ namespace URLShortener.Controllers
             return View("Index");
         }
 
-        public ActionResult Get(string slug)
+        public ActionResult Ray(string slug)
         {
             //pass slug into service and get domain model back
            
