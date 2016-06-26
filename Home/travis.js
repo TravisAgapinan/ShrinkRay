@@ -11,7 +11,7 @@
 
 };
 travis.moduleOptions = {
-    APPNAME: "SabioApp"
+    APPNAME: "TravisApp"
         , extraModuleDependencies: []
         , runners: []
         , page: travis.page//we need this object here for later use
@@ -22,7 +22,7 @@ travis.layout.startUp = function () {
 
     console.debug("travis.layout.startUp");
 
-    //this does a null check on sabio.page.startUp
+    //this does a null check on travis.page.startUp
     if (travis.page.startUp) {
         console.debug("travis.page.startUp");
         travis.page.startUp();
