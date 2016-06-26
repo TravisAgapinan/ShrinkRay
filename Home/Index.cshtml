@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<title>Creative - Start Bootstrap Theme</title>
+<head>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/full.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- Plugin CSS -->
+    <link href="~/Content/magnific-popup.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/Content/creative.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Full - Start Bootstrap Template</title>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script>
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Shrink Ray</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Enter your URL below</h2>
+                    <hr class="light">
+                    <p class="text-faded">UNLEASH THE POWER OF THE SHRINK RAY</p>
+                    <p class="text-faded">This service is and example of a URL Shortening service. In a real world environment, a short domain would need to be purchased for the truly desired effect. Source Code can be located on my GitHub.</p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="input-group input-group-lg">
+                                <input id="UrlInput" type="text" class="form-control urlInput" placeholder="www.example.com...">
+                                <span class="input-group-btn">
+                                    <button id="inputBtn" class="btn btn-secondary-outline btn-success" type="button">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="appendHere"></div>
+
+    <div id="linkSectionTemplate" class="linkSectionTemplate hidden">
+        <ul>
+            <li>
+                <div id="title" class="article-title">Google</div>
+                <a id="shortURL" class="short-url appendRay" href="x">change me</a>
+                <img id="rayRay"class="hidden" src="~/Images/rayicon.png" />
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="~/Scripts/scrollreveal.min.js"></script>
+    <script src="~/Scripts/jquery.fittext.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Scripts/travis.js"></script>
+    <script src="~/Scripts/creative.min.js"></script>
+</body>
+
+<script type="text/javascript">
+
+    travis.page.startUp = function () {
+        $("#inputBtn").on("click", travis.page.handlers.subURL);
+    };
+
+
+    travis.page.handlers.subURL = function () {
+        var newUrl = $(".urlInput").val();
+        var payload = {
+            URL: newUrl
+        };
+
+        $.ajax({
+            type: 'POST',
+            data: payload,
+            dataType: "json",
+            url: '/api/create/',
+            success: travis.page.handlers.postSuccess,
+            error: travis.page.handlers.postError,
+        });
+    };
+
+    travis.page.handlers.postSuccess = function (data) {
+        console.log("post successful", data)
+        travis.page.handlers.getURL();
+    };
+
+    travis.page.handlers.postError = function (data) {
+        console.log("post ERROR", data)
+    };
+
+    travis.page.handlers.getURL = function () {
+        var newUrl = $(".urlInput").val();
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: '/api/' + newUrl + '/',
+            success: travis.page.handlers.getSuccess,
+            error: travis.page.handlers.getError,
+        });
+    }
+
+    travis.page.handlers.getSuccess = function (data) {
+        var clone = $("#linkSectionTemplate").clone().removeClass("hidden").removeAttr("id");
+        var rayClone = $("#rayRay").clone().removeClass("hidden").addClass("fade-right");
+        $(".urlInput").val("");
+        console.log(data);
+        $(".article-title", clone).text(data.Item.Url);
+        $(".short-url", clone).attr("href", "get/" + data.Item.Slug).text("/get/" + data.Item.Slug).fadeIn(1500);
+        $(".appendHere").prepend(clone);
+        $(".appendRay").prepend(rayClone);
+        $("#rayRay").animate({ right: 1000, opacity: "show" }, 1800).animate({ right: 1, opacity: "hide" }, 500);
+    };
+
+
+
+</script>
