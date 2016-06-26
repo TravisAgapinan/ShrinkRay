@@ -1,0 +1,30 @@
+USE [ShrinkRay]
+GO
+/****** Object:  StoredProcedure [dbo].[GetURLbySlug]    Script Date: 6/26/16 9:19:40 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+ALTER proc [dbo].[GetURLbySlug]
+/*Selecting the URL by the Slug created*/
+@Slug nvarchar(8)
+
+AS
+
+BEGIN
+
+SELECT 
+[ID],
+[URL],
+[Slug],
+[Created]
+
+FROM [dbo].[URLs]
+
+WHERE Slug = @Slug
+	
+end
+
+/* exec [dbo].[GetURLbySlug] @Slug = pqtpxgq1*/	
