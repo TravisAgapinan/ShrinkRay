@@ -8,7 +8,7 @@ GO
 
 
 ALTER proc [dbo].[GetSlugByUrl]
-/*Selecting the URL by the Slug created*/
+/*Selecting the Slug by the Url in Db*/
 @URL nvarchar(max)
 
 AS
